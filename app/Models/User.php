@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -18,6 +17,11 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'surname',
+        'nickname',
+        'phone',
+        'avatar',
+        'showPhone',
         'email',
         'password',
     ];
@@ -39,5 +43,10 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'showPhone' => 'boolean'
     ];
+
+    public function articles(){
+        return $this->belongsToMany(Article::class, 'user_article', 'article_id','user_id');
+    }
 }
