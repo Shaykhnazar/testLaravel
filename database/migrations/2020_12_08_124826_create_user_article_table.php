@@ -12,7 +12,7 @@ class CreateUserArticleTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')
                 ->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('article_id')->constrained('article')
+            $table->foreignId('article_id')->constrained('articles')
                 ->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
