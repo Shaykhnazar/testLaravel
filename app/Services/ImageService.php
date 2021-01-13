@@ -5,6 +5,7 @@ namespace App\Services;
 
 
 use Illuminate\Support\Facades\File;
+use Intervention\Image\Facades\Image;
 
 class ImageService
 {
@@ -27,7 +28,7 @@ class ImageService
             $thumbs = Image::make($file);
             $thumbs->fit(213, 189, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save($file_path);
+            })->save($file_path.'/'.$file_name);
         }
         return $file_name;
     }

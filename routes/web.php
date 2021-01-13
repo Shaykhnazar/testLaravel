@@ -20,13 +20,13 @@ Route::get('/', function () {
 });
 
 Route::group(['prefix' => 'user'], function (){
+    Route::get('',[UserController::class, 'index'])->name('user.index');
     Route::get('profile/{id}',[UserController::class, 'profile'])->name('user.profile');
     Route::get('create',[UserController::class, 'create'])->name('user.create');
     Route::post('store',[UserController::class, 'store'])->name('user.store');
 });
 Route::group(['prefix' => 'article'], function (){
-    Route::get('index',[ArticleController::class, 'index'])->name('article.index');
-    Route::get('{id}',[ArticleController::class, 'show'])->name('article.show');
+    Route::get('',[ArticleController::class, 'index'])->name('article.index');
     Route::get('create',[ArticleController::class, 'create'])->name('article.create');
     Route::post('store',[ArticleController::class, 'store'])->name('article.store');
     Route::delete('delete/{id}',[ArticleController::class, 'softDelete'])->name('article.delete');

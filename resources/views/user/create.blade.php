@@ -1,7 +1,7 @@
 @extends('layout.app')
 @section('content')
     <div class='edit-profile'>
-        <h2 class="heading">Редактировать профиль</h2>
+        <h2 class="heading">Добавить пользователь</h2>
         <form class='form' id='form' action="{{route('user.store')}}" method='POST' enctype='multipart/form-data'>
             @csrf
             @method('POST')
@@ -54,9 +54,14 @@
                 <li class="form__item">
                     <div class="form__title">Пол:</div>
                     <label class='form__inline-label' for="male">Мужской</label>
-                    <input class='form__inline-input' name='sex' id='male' type="radio">
+                    <input class='form__inline-input @error('sex') is-invalid @enderror' name='sex' id='male' type="radio" value="true">
                     <label class='form__inline-label' for="female">Женский</label>
-                    <input class='form__inline-input' name='sex' id='female' type="radio">
+                    <input class='form__inline-input @error('sex') is-invalid @enderror' name='sex' id='female' type="radio" value="false">
+                    @error('sex')
+                    <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </li>
                 <li class="form__item">
                     <label class='form__inline-label' for="show_phone">Я согласен получать email-рассылку</label>

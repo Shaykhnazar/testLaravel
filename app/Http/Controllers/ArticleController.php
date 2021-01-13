@@ -36,23 +36,18 @@ class ArticleController extends Controller
         $request->validate([
             'title'=>'required|unique:articles',
             'text'=>'required|string',
+            'users'=>'required'
         ]);
         $data=[
             'title'=>$request->title,
             'text'=>$request->text,
         ];
-        Article::create($data);
+        $art = Article::create($data);
+        $art->users()->sync($request->users);
 
         return redirect()->route('article.index' )->with('success','Статья успешно cоздана!');
     }
 
-    /**
-     * Show one article
-     */
-    public function show()
-    {
-        return view('article.show');
-    }
 
 
     /**
@@ -64,6 +59,7 @@ class ArticleController extends Controller
         $article = Article::findOrFail($id);
         $article->deleted_at = now();
         $article->save();
+        return redirect()->back();
     }
 
     /**
@@ -75,5 +71,6 @@ class ArticleController extends Controller
         $article = Article::findOrFail($id);
         $article->deleted_at = null;
         $article->save();
+        return redirect()->back();
     }
 }

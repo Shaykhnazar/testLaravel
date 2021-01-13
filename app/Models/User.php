@@ -24,6 +24,7 @@ class User extends Model
         'nickname',
         'phone',
         'avatar',
+        'sex',
         'show_phone',
         'email',
         'password',

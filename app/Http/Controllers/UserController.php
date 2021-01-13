@@ -12,6 +12,15 @@ class UserController extends Controller
 {
 
     /**
+     * Get list of users
+     */
+    public function index()
+    {
+        $users = User::get();
+        return view('user.index',compact('users'));
+    }
+
+    /**
      * Get user profile
      * @param $id
      * @return \Illuminate\Contracts\View\View
@@ -42,7 +51,7 @@ class UserController extends Controller
             'surname'=>'required',
             'nickname'=>'required|unique:users',
             'phone'=>'required|unique:users',
-            'sex'=>'required|boolean',
+            'sex'=>'required',
             'show_phone'=>'required',
             'avatar'=>'nullable|mimes:jpeg,jpg,bmp,png',
         ]);
@@ -50,12 +59,12 @@ class UserController extends Controller
             'name'=>$request->name,
             'surname'=>$request->surname,
             'nickname'=>$request->nickname,
-            'sex'=>$request->sex,
+            'sex'=>($request->sex =="true")? true : false,
             'phone'=>$request->phone,
-            'show_phone'=>$request->show_phone,
+            'show_phone'=>($request->show_phone =="on")? true : false,
         ];
-        if ($avatar = $request->avatar){
-            $content = ImageService::uploadWithCrop($avatar, 'users');
+        if ($request->avatar){
+            $content = ImageService::uploadWithCrop($request->file('avatar'), 'users');
             $avatar = ['avatar' => $content];
             array_push($data,$avatar);
         }
