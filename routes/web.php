@@ -32,3 +32,7 @@ Route::group(['prefix' => 'article'], function (){
     Route::delete('delete/{id}',[ArticleController::class, 'softDelete'])->name('article.delete');
     Route::post('restore/{id}',[ArticleController::class, 'restore'])->name('article.restore');
 });
+Route::group(['middleware' => ['web']], function () {
+    Route::post('/get_experience', [UserController::class,'getExperience']);
+    Route::post('/set_experience', [UserController::class,'setExperience']);
+});

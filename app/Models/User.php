@@ -28,6 +28,7 @@ class User extends Model
         'show_phone',
         'email',
         'password',
+        'experience'
     ];
 
 //    /**

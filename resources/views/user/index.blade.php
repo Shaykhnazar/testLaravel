@@ -25,6 +25,7 @@
                                     <th>Surname</th>
                                     <th>Phone</th>
                                     <th>Sex</th>
+{{--                                    <th>Experience</th>--}}
                                     <th>Actions</th>
                                 </tr>
                                 </thead>
@@ -37,6 +38,7 @@
                                         <td>{{ $item->surname }}</td>
                                         <td>{{ $item->phone }}</td>
                                         <td>{{ ($item->sex) ? "Мужской" : "Женский" }}</td>
+{{--                                        <td id="experience"></td>--}}
                                         <td width="150px">
                                             <div class="btn-group" role="group" aria-label="Button group">
                                                 <a class="dropdown-item" style="margin:3px;" href="{{route('user.profile',$item->id)}}"> @lang('Посмотреть')</a>

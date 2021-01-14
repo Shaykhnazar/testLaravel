@@ -5,11 +5,17 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use App\Services\ImageService;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    private $userService;
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
 
     /**
      * Get list of users
@@ -70,6 +76,41 @@ class UserController extends Controller
         }
         $user = User::create($data);
         return redirect()->route('user.profile', $user->id )->with('success','Пользователь успешно cоздан!');
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function setExperience(Request $request)
+    {
+        if ($this->userService->setExperienceUser($request)) {
+            return response()->json([
+                'success'=>__('site.set_experience')
+            ]);
+        }
+
+        return response()->json([
+            'status' => __('site.warning')
+        ]);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getExperience(Request $request){
+        $getExprnc = $this->userService->getExperienceUser($request);
+
+        if ($getExprnc) {
+            return response()->json([
+                'success'=>__('site.get_experience'),
+                'user_experience' => $getExprnc
+            ]);
+        }
+
+        return response()->json([
+            'status' => __('site.warning')
+        ]);
     }
 
 }

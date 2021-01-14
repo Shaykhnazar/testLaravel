@@ -23,7 +23,7 @@ class Article extends Model
     public function checkAuthor(User $user){
         try {
             $author = User::findOrFail($user->id);
-            $is_author = $this->users()->where('user_id',$author->id)->get();
+            $is_author = $this->users()->find($author->id);
             if ($this->attributes['deleted_at'])
                 return null;
 
